@@ -1571,6 +1571,7 @@ s32 rtw_mgmt_xmitframe_coalesce(_adapter *padapter, _pkt *pkt, struct xmit_frame
 	if(BIP_AAD == NULL)
 		return _FAIL;
 
+	DBG_871X_LEVEL(_drv_always_, "lock in %s\n", __func__);
 	spin_lock_bh(&padapter->security_key_mutex);
 
 	//only support station mode
@@ -1760,11 +1761,13 @@ s32 rtw_mgmt_xmitframe_coalesce(_adapter *padapter, _pkt *pkt, struct xmit_frame
 
 xmitframe_coalesce_success:
 	spin_unlock_bh(&padapter->security_key_mutex);
+	DBG_871X_LEVEL(_drv_always_, "lock out %s with success\n", __func__);
 	kfree(BIP_AAD);
 	return _SUCCESS;
 
 xmitframe_coalesce_fail:
 	spin_unlock_bh(&padapter->security_key_mutex);
+	DBG_871X_LEVEL(_drv_always_, "lock out %s with fail\n", __func__);
 	kfree(BIP_AAD);
 	return _FAIL;
 }

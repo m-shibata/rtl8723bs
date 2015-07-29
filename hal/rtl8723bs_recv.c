@@ -214,6 +214,7 @@ static void rtl8723bs_recv_tasklet(void *priv)
 
 		ptr = precvbuf->pdata;
 
+		DBG_871X_LEVEL(_drv_always_, "%s: dequeued pending recv buf\n", __func__);
 		while (ptr < precvbuf->ptail)
 		{
 			precvframe = rtw_alloc_recvframe(&precvpriv->free_recv_queue);
@@ -387,6 +388,7 @@ static void rtl8723bs_recv_tasklet(void *priv)
 			precvframe = NULL;
 			pkt_copy = NULL;
 		}
+		DBG_871X_LEVEL(_drv_always_, "%s: free recv buf\n", __func__);
 
 		rtw_enqueue_recvbuf(precvbuf, &precvpriv->free_recv_buf_queue);
 	} while (1);
